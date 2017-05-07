@@ -1,0 +1,707 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="跨域," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="满足下面其中一个条件即要跨域： 协议不同 域名不同 端口不同  跨域的方式我总结了以下几种：第一种：window.name和iframe标签实现跨域  iframe标签的src能跨域;   window.name属性值在文档刷新后依旧存在   使用window.name的值是字符串形式，最大可2M。 服务器端：12//第一种php的代码echo &apos;&amp;lt;script&amp;gt; window.nam">
+<meta name="keywords" content="跨域">
+<meta property="og:type" content="article">
+<meta property="og:title" content="跨域的方式总结">
+<meta property="og:url" content="http://yoursite.com/2017/05/07/跨域的方式总结/index.html">
+<meta property="og:site_name" content="Xiaoxua">
+<meta property="og:description" content="满足下面其中一个条件即要跨域： 协议不同 域名不同 端口不同  跨域的方式我总结了以下几种：第一种：window.name和iframe标签实现跨域  iframe标签的src能跨域;   window.name属性值在文档刷新后依旧存在   使用window.name的值是字符串形式，最大可2M。 服务器端：12//第一种php的代码echo &apos;&amp;lt;script&amp;gt; window.nam">
+<meta property="og:updated_time" content="2017-05-07T06:18:50.927Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="跨域的方式总结">
+<meta name="twitter:description" content="满足下面其中一个条件即要跨域： 协议不同 域名不同 端口不同  跨域的方式我总结了以下几种：第一种：window.name和iframe标签实现跨域  iframe标签的src能跨域;   window.name属性值在文档刷新后依旧存在   使用window.name的值是字符串形式，最大可2M。 服务器端：12//第一种php的代码echo &apos;&amp;lt;script&amp;gt; window.nam">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/05/07/跨域的方式总结/"/>
+
+
+
+
+
+  <title>跨域的方式总结 | Xiaoxua</title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Xiaoxua</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/05/07/跨域的方式总结/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Xiaoxua">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Xiaoxua">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">跨域的方式总结</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-05-07T00:47:23+08:00">
+                2017-05-07
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="满足下面其中一个条件即要跨域："><a href="#满足下面其中一个条件即要跨域：" class="headerlink" title="满足下面其中一个条件即要跨域："></a>满足下面其中一个条件即要跨域：</h3><ul>
+<li>协议不同</li>
+<li>域名不同</li>
+<li>端口不同</li>
+</ul>
+<h2 id="跨域的方式我总结了以下几种："><a href="#跨域的方式我总结了以下几种：" class="headerlink" title="跨域的方式我总结了以下几种："></a>跨域的方式我总结了以下几种：</h2><h3 id="第一种：window-name和iframe标签实现跨域"><a href="#第一种：window-name和iframe标签实现跨域" class="headerlink" title="第一种：window.name和iframe标签实现跨域"></a>第一种：<code>window.name</code>和<code>iframe</code>标签实现跨域</h3><ol>
+<li><strong> <code>iframe</code>标签的<code>src</code>能跨域; </strong></li>
+<li><strong> <code>window.name</code>属性值在文档刷新后依旧存在 </strong></li>
+</ol>
+<p>使用<br>window.name的值是字符串形式，最大可2M。 服务器端：<br><figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//第一种php的代码</span></div><div class="line"><span class="keyword">echo</span> <span class="string">'&lt;script&gt; window.name = "&#123;\"name\":\"xiaobai\", \"age\":100&#125;" &lt;/script&gt;'</span>;</div></pre></td></tr></table></figure></p>
+<p>我没有采用php的，而是用node.js起了一个服务器，监听了90端口。 代码如下：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> http=<span class="built_in">require</span>(<span class="string">"http"</span>);</div><div class="line">http.createServer(<span class="function"><span class="keyword">function</span>(<span class="params">req,res</span>)</span>&#123;</div><div class="line">   res.writeHead(<span class="number">200</span>,&#123;<span class="string">'Content-Type'</span>:<span class="string">'text/html'</span>&#125;);</div><div class="line">   res.end(<span class="string">"&lt;script&gt;window.name='&#123;\"name\":\"xiaobai\", \"age\":100&#125;'&lt;/script&gt;"</span>);</div><div class="line">&#125;).listen(<span class="number">90</span>);</div></pre></td></tr></table></figure></p>
+<p>将要返回的数据转化为字符串，赋值给<code>window.name</code>（是在JavaScript代码中）<br>客户端的： 注意：如果index.html页面和和该页面里的<code>iframe</code>框架的<code>src</code>如果不同源，则也无法操作框架里的任何东西，也就取不到<code>iframe</code>框架的<code>name</code>值了。所以要将<code>iframe</code>再链接到与index.html同源的页面，才能获取它的<code>window.name</code>值。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div></pre></td><td class="code"><pre><div class="line">&lt;script&gt;</div><div class="line">    <span class="function"><span class="keyword">function</span> <span class="title">cross</span>(<span class="params">url, fn</span>) </span>&#123;</div><div class="line">        <span class="keyword">var</span> iframe = <span class="built_in">document</span>.createElement(<span class="string">"iframe"</span>);</div><div class="line">        iframe.style.display = <span class="string">"none"</span>;</div><div class="line">        <span class="keyword">var</span> flag = <span class="number">0</span>;</div><div class="line">        <span class="keyword">if</span>(iframe.addEventListener)&#123;</div><div class="line">            iframe.addEventListener(<span class="string">"load"</span>, loadfn)</div><div class="line">        &#125;<span class="keyword">else</span> <span class="keyword">if</span>(iframe.attachEvent)&#123;</div><div class="line">             iframe.attachEvent(<span class="string">"onload"</span>, loadfn)</div><div class="line">        &#125;<span class="keyword">else</span>&#123;</div><div class="line">            iframe.onload= loadfn;</div><div class="line">        &#125;</div><div class="line">        iframe.src = url;</div><div class="line">        <span class="built_in">document</span>.body.appendChild(iframe);</div><div class="line">        <span class="function"><span class="keyword">function</span> <span class="title">loadfn</span>(<span class="params"></span>)</span>&#123;</div><div class="line">            <span class="keyword">if</span> (flag==<span class="number">0</span>) &#123;</div><div class="line">                flag = <span class="number">1</span>;</div><div class="line">                iframe.contentWindow.location.href = <span class="string">"about:blank"</span>;</div><div class="line">            &#125; <span class="keyword">else</span> &#123;</div><div class="line">                fn(iframe.contentWindow.name);</div><div class="line">                iframe.contentWindow.close();</div><div class="line">                <span class="built_in">document</span>.body.removeChild(iframe);</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    <span class="function"><span class="keyword">function</span> <span class="title">fn</span>(<span class="params">data</span>) </span>&#123;</div><div class="line">        <span class="keyword">if</span>(<span class="keyword">typeof</span> <span class="built_in">JSON</span> == <span class="string">'undefined'</span>)&#123;</div><div class="line">        <span class="comment">//为了兼容IE6 IE7 IE8(Q) 不支持 JSON 对象。</span></div><div class="line">            <span class="keyword">var</span> script=<span class="built_in">document</span>.createElement(<span class="string">"script"</span>);</div><div class="line">            script.src=<span class="string">"json2.js"</span>;<span class="comment">//json2.js文件可以在网上下载</span></div><div class="line">            <span class="built_in">document</span>.body.appendChild(script);</div><div class="line">         &#125;</div><div class="line">            data = <span class="built_in">JSON</span>.parse(data);</div><div class="line">        <span class="built_in">console</span>.log(data);</div><div class="line">    &#125;</div><div class="line">    cross(<span class="string">"http://127.0.0.1:90/"</span>, fn);</div><div class="line">&lt;/script&gt;</div></pre></td></tr></table></figure>
+<p>完成！</p>
+<h3 id="第二种：JSONP跨域"><a href="#第二种：JSONP跨域" class="headerlink" title="第二种：JSONP跨域"></a>第二种：JSONP跨域</h3><p>JSONP的最基本的原理是：动态添加一个<code>script</code>标签，而<code>script</code>标签的<code>src</code>属性是没有跨域的限制的。 网上摘录的：<br>简述原理与过程：首先在客户端注册一个callback, 然后把callback的名字传给服务器。此时，服务器先生成 json 数据。 然后以 javascript 语法的方式，生成一个function , function 名字就是传递上来的参数 jsonp。最后将 json 数据直接以入参的方式，放置到 function 中，这样就生成了一段 js 语法的文档，返回给客户端。<br>客户端浏览器，解析<code>script</code>标签，并执行返回的 javascript 文档，此时数据作为参数，传入到了客户端预先定义好的 callback 函数里。（动态执行回调函数）<br>使用：<br>服务端代码：<br><figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//第一种php的代码</span></div><div class="line">$jsonp = $_GET[<span class="string">"callback"</span>];</div><div class="line">$str = $jsonp .<span class="string">'(&#123;name: xiaobai, age: 100&#125;)'</span>;</div><div class="line"><span class="keyword">echo</span> $str;</div></pre></td></tr></table></figure></p>
+<p>这里我同样才用的是node.js的代码<br>代码如下：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> http=<span class="built_in">require</span>(<span class="string">"http"</span>);</div><div class="line"><span class="keyword">var</span> url = <span class="built_in">require</span>(<span class="string">"url"</span>);</div><div class="line">http.createServer(<span class="function"><span class="keyword">function</span>(<span class="params">req,res</span>)</span>&#123;</div><div class="line"> <span class="keyword">var</span> params = url.parse(req.url, <span class="literal">true</span>).query;</div><div class="line">   res.writeHead(<span class="number">200</span>,&#123;<span class="string">'Content-Type'</span>:<span class="string">'text/html'</span>&#125;);</div><div class="line">   <span class="keyword">var</span> obj=&#123;</div><div class="line">       <span class="attr">name</span>:<span class="string">"xiaobai"</span>,</div><div class="line">       <span class="attr">age</span>:<span class="number">100</span></div><div class="line">   &#125;</div><div class="line">   res.end(params.callback+<span class="string">"('"</span>+<span class="built_in">JSON</span>.stringify(obj)+<span class="string">"')"</span>);</div><div class="line">&#125;).listen(<span class="number">90</span>);</div></pre></td></tr></table></figure></p>
+<p>客户端代码：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">&lt;script&gt;</div><div class="line">    <span class="keyword">if</span>(<span class="keyword">typeof</span> <span class="built_in">JSON</span> == <span class="string">'undefined'</span>)&#123;</div><div class="line">        <span class="keyword">var</span> script=<span class="built_in">document</span>.createElement(<span class="string">"script"</span>);</div><div class="line">        script.src=<span class="string">"json2.js"</span>;</div><div class="line">        <span class="built_in">document</span>.body.appendChild(script);</div><div class="line">    &#125;</div><div class="line">    <span class="function"><span class="keyword">function</span> <span class="title">cross</span>(<span class="params">url, fn</span>) </span>&#123;</div><div class="line">        <span class="keyword">var</span> url=url+<span class="string">"?callback=fn"</span>;</div><div class="line">        <span class="keyword">var</span> script=<span class="built_in">document</span>.createElement(<span class="string">"script"</span>);</div><div class="line">        script.src=url;</div><div class="line">        <span class="built_in">document</span>.body.appendChild(script);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">function</span> <span class="title">fn</span>(<span class="params">data</span>) </span>&#123;</div><div class="line">        data = <span class="built_in">JSON</span>.parse(data);</div><div class="line">        <span class="built_in">console</span>.log(data);</div><div class="line">    &#125;</div><div class="line">    cross(<span class="string">"http://127.0.0.1:90"</span>, fn);</div><div class="line">&lt;/script&gt;</div></pre></td></tr></table></figure></p>
+<p>完成！</p>
+<h3 id="第三种：html5的postMessage-跨域"><a href="#第三种：html5的postMessage-跨域" class="headerlink" title="第三种：html5的postMessage()跨域"></a>第三种：html5的postMessage()跨域</h3><p><code>window.postMessage</code>是一个安全的跨源通信的方法 <code>otherWindow.postMessage(message, targetOrigin);</code> otherWindow是窗口引用，message将要发送到其他 window的数据，targetOrigin通过窗口的origin属性来指定哪些窗口能接收到消息事件，其值可以是字符串”<code>*</code>“（表示无限制）或者一个URI。这个大家可以去查一下api.</p>
+<ul>
+<li>message事件 调函数第一个参数接收 Event 对象，有三个常用属性：</li>
+<li>data:消息</li>
+<li>origin:消息来源地址</li>
+<li>source:发送消息的窗口对象</li>
+</ul>
+<p>使用：<br>服务端：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="keyword">var</span> http=<span class="built_in">require</span>(<span class="string">"http"</span>);</div><div class="line">http.createServer(<span class="function"><span class="keyword">function</span>(<span class="params">req,res</span>)</span>&#123;</div><div class="line">   res.writeHead(<span class="number">200</span>,&#123;<span class="string">'Content-Type'</span>:<span class="string">'text/html'</span>&#125;);</div><div class="line">   <span class="keyword">var</span> obj=&#123;</div><div class="line">       <span class="attr">name</span>:<span class="string">"xiaobai"</span>,</div><div class="line">       <span class="attr">age</span>:<span class="number">100</span></div><div class="line">   &#125;</div><div class="line"></div><div class="line">   obj=<span class="built_in">JSON</span>.stringify(obj);</div><div class="line">   res.end(<span class="string">"&lt;script&gt;window.onmessage=function(e)&#123; if(e.source!=window.parent) return; window.parent.postMessage('"</span>+obj+<span class="string">"','*');&#125;&lt;/script&gt;"</span>);</div><div class="line">&#125;).listen(<span class="number">90</span>)</div></pre></td></tr></table></figure></p>
+<p>客户端：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line">&lt;script&gt;</div><div class="line">    <span class="keyword">if</span>(<span class="keyword">typeof</span> <span class="built_in">JSON</span> == <span class="string">'undefined'</span>)&#123;</div><div class="line">        <span class="keyword">var</span> script=<span class="built_in">document</span>.createElement(<span class="string">"script"</span>);</div><div class="line">        script.src=<span class="string">"json2.js"</span>;</div><div class="line">        <span class="built_in">document</span>.body.appendChild(script);</div><div class="line">    &#125;</div><div class="line">    <span class="function"><span class="keyword">function</span> <span class="title">cross</span>(<span class="params">url, fn</span>) </span>&#123;</div><div class="line">        <span class="keyword">var</span> iframe=<span class="built_in">document</span>.createElement(<span class="string">"iframe"</span>);</div><div class="line">        iframe.style.display=<span class="string">"none"</span>;</div><div class="line">        iframe.src=url;</div><div class="line">        <span class="built_in">document</span>.body.appendChild(iframe);</div><div class="line">        iframe.onload= <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">            iframe.contentWindow.postMessage(<span class="string">'getData'</span>,<span class="string">'http://127.0.0.1:90'</span>);</div><div class="line">            <span class="built_in">window</span>.onmessage=<span class="function"><span class="keyword">function</span>(<span class="params">e</span>)</span>&#123;</div><div class="line">                fn(e.data);</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">function</span> <span class="title">fn</span>(<span class="params">data</span>) </span>&#123;</div><div class="line">        data = <span class="built_in">JSON</span>.parse(data);</div><div class="line">        <span class="built_in">console</span>.log(data);</div><div class="line">    &#125;</div><div class="line">    cross(<span class="string">"http://127.0.0.1:90"</span>, fn);</div><div class="line">&lt;/script&gt;</div></pre></td></tr></table></figure>
+<p>完成！</p>
+<h3 id="第四种：CORS（跨域资源共享）"><a href="#第四种：CORS（跨域资源共享）" class="headerlink" title="第四种：CORS（跨域资源共享）"></a>第四种：CORS（跨域资源共享）</h3><p>CORS是XMLHttpRequest Level 2 里规定的一种跨域方式。在支持这个方式的浏览器里，javascript的写法和不跨域的ajax写法一模一样，只要服务器需要设置<code>Access-Control-Allow-Origin: *</code>因此，实现CORS通信的关键是服务器。只要服务器实现了CORS接口，就可以跨源通信。<br>使用<br>服务端：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> http=<span class="built_in">require</span>(<span class="string">"http"</span>);</div><div class="line">http.createServer(<span class="function"><span class="keyword">function</span>(<span class="params">req,res</span>)</span>&#123;</div><div class="line">   <span class="keyword">var</span> options=&#123;</div><div class="line">       <span class="string">'Content-Type'</span>:<span class="string">'text/html'</span>,</div><div class="line">       <span class="string">'Access-Control-Allow-Origin'</span>:<span class="string">'http://localhost'</span>,<span class="comment">//该字段是必须的。它的值要么是请求时Origin字段的值，要么是一个*，表示接受任意域名的请求。</span></div><div class="line">    <span class="string">'Access-Control-Allow-Credentials'</span>:<span class="literal">false</span>,<span class="comment">//该字段可选。它的值是一个布尔值，表示是否允许发送Cookie</span></div><div class="line">    <span class="string">'Access-Control-Allow-Methods'</span>:<span class="string">'GET,PUT,POST,DELETE,OPTIONS'</span>,<span class="comment">//各种请求方式</span></div><div class="line">    <span class="string">'Access-Control-Allow-Headers'</span>:<span class="string">'X-Custom-Header'</span><span class="comment">//该字段是一个逗号分隔的字符串，指定浏览器CORS请求会额外发送的头信息字段</span></div><div class="line">   &#125;</div><div class="line">   res.writeHead(<span class="number">200</span>,options);</div><div class="line">   <span class="keyword">var</span> obj=&#123;</div><div class="line">       <span class="attr">name</span>:<span class="string">"xiaobai"</span>,</div><div class="line">       <span class="attr">age</span>:<span class="number">100</span></div><div class="line">   &#125;</div><div class="line">   obj=<span class="built_in">JSON</span>.stringify(obj);</div><div class="line">   res.end(obj);</div><div class="line">&#125;).listen(<span class="number">90</span>)</div></pre></td></tr></table></figure></p>
+<p>客户端：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div></pre></td><td class="code"><pre><div class="line">&lt;script&gt;</div><div class="line">    <span class="keyword">if</span>(<span class="keyword">typeof</span> <span class="built_in">JSON</span> == <span class="string">'undefined'</span>)&#123;</div><div class="line">        <span class="keyword">var</span> script=<span class="built_in">document</span>.createElement(<span class="string">"script"</span>);</div><div class="line">        script.src=<span class="string">"json2.js"</span>;</div><div class="line">        <span class="built_in">document</span>.body.appendChild(script);</div><div class="line">    &#125;</div><div class="line">    <span class="function"><span class="keyword">function</span> <span class="title">cross</span>(<span class="params">url, fn</span>) </span>&#123;</div><div class="line">        <span class="keyword">var</span> xhr = createCORSRequest(<span class="string">'GET'</span>, url);</div><div class="line">        xhr.onload = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">            <span class="keyword">var</span> responseText = xhr.responseText;</div><div class="line">            fn(responseText);</div><div class="line">        &#125;;</div><div class="line">        xhr.onerror = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">            <span class="built_in">console</span>.log(<span class="string">'There was an error!'</span>);</div><div class="line">        &#125;;</div><div class="line">        xhr.setRequestHeader(<span class="string">'X-Custom-Header'</span>, <span class="string">'value'</span>);<span class="comment">//自定义头部字段</span></div><div class="line">        xhr.send(<span class="literal">null</span>);</div><div class="line">    &#125;</div><div class="line">    <span class="function"><span class="keyword">function</span> <span class="title">createCORSRequest</span>(<span class="params">method, url</span>) </span>&#123;</div><div class="line">        <span class="keyword">var</span> xhr = <span class="keyword">new</span> XMLHttpRequest();</div><div class="line">        <span class="keyword">if</span> (<span class="string">"withCredentials"</span> <span class="keyword">in</span> xhr) &#123;</div><div class="line">            <span class="comment">//xhr.withCredentials = true;//不对cookies做任何事情，既不发送也不改变.服务端在处理这一请求时，也需要将Access-Control-Allow-Credentials设置为true</span></div><div class="line">            <span class="comment">// "withCredentials"属性是XMLHTTPRequest2中独有的</span></div><div class="line">            xhr.open(method, url, <span class="literal">true</span>);</div><div class="line"></div><div class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (<span class="keyword">typeof</span> XDomainRequest != <span class="string">"undefined"</span>) &#123;</div><div class="line">            <span class="comment">//IE</span></div><div class="line">            <span class="comment">// 检测是否XDomainRequest可用</span></div><div class="line">            xhr = <span class="keyword">new</span> XDomainRequest();</div><div class="line">            xhr.open(method, url);</div><div class="line">        &#125; <span class="keyword">else</span> &#123;</div><div class="line">            <span class="comment">// CORS不被支持</span></div><div class="line">            xhr = <span class="literal">null</span>;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> xhr;</div><div class="line">    &#125;</div><div class="line">    <span class="function"><span class="keyword">function</span> <span class="title">fn</span>(<span class="params">data</span>) </span>&#123;</div><div class="line">        data = <span class="built_in">JSON</span>.parse(data);</div><div class="line">        <span class="built_in">console</span>.log(data);</div><div class="line">    &#125;</div><div class="line">    cross(<span class="string">"http://127.0.0.1:90"</span>, fn);</div><div class="line">&lt;/script&gt;</div></pre></td></tr></table></figure></p>
+<p>完成！</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/跨域/" rel="tag"># 跨域</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/uploads/avatar.jpg"
+               alt="Xiaoxua" />
+          <p class="site-author-name" itemprop="name">Xiaoxua</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">1</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">1</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#满足下面其中一个条件即要跨域："><span class="nav-number">1.</span> <span class="nav-text">满足下面其中一个条件即要跨域：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#跨域的方式我总结了以下几种："><span class="nav-number"></span> <span class="nav-text">跨域的方式我总结了以下几种：</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#第一种：window-name和iframe标签实现跨域"><span class="nav-number">1.</span> <span class="nav-text">第一种：window.name和iframe标签实现跨域</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第二种：JSONP跨域"><span class="nav-number">2.</span> <span class="nav-text">第二种：JSONP跨域</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第三种：html5的postMessage-跨域"><span class="nav-number">3.</span> <span class="nav-text">第三种：html5的postMessage()跨域</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第四种：CORS（跨域资源共享）"><span class="nav-number">4.</span> <span class="nav-text">第四种：CORS（跨域资源共享）</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Xiaoxua</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
